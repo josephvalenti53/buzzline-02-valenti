@@ -44,7 +44,7 @@ def get_kafka_topic() -> str:
 
 def get_message_interval() -> int:
     """Fetch message interval from environment or use default."""
-    interval = int(os.getenv("MESSAGE_INTERVAL_SECONDS", 1))
+    interval = int(os.getenv("MESSAGE_INTERVAL_SECONDS", 1)) # default to 60 seconds
     logger.info(f"Message interval: {interval} seconds")
     return interval
 
@@ -74,6 +74,12 @@ def generate_messages(producer, topic, interval_secs):
         "Come swim at the Waterpark, free waterproof cameras to first 20 Guests!",
         "Come swim at the waterpark, not responsible for damage to non-waterproof cameras!"
     ]
+
+    
+    # Separate strings into two categories
+    messages_with_20 = [msg for msg in string_list if "20" in msg]
+    messages_without_20 = [msg for msg in string_list if "20" not in msg]
+    
     try:
         while True:
             for message in string_list:
