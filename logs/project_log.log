@@ -1366,3 +1366,23 @@
 2025-01-24 18:56:01.723 | WARNING  | __main__:main:97 - Consumer interrupted by user.
 2025-01-24 18:56:01.742 | INFO     | __main__:main:102 - Kafka consumer for topic 'buzzline' closed.
 2025-01-24 18:56:01.744 | INFO     | __main__:main:104 - END consumer for topic 'buzzline' and group 'default_group'.
+2025-01-24 18:56:06.888 | INFO     | __main__:generate_messages:91 - Come shop at the Bear's Den GiftShop, grab a book and read by the pool!
+2025-01-24 18:57:06.890 | INFO     | __main__:generate_messages:91 - Come golf at the Howl in One, so many colors of balls to choose from!
+2025-01-24 18:58:06.894 | INFO     | __main__:generate_messages:91 - Come swim at the waterpark, not responsible for damage to non-waterproof cameras!
+2025-01-24 18:59:06.898 | INFO     | __main__:generate_messages:91 - Come play at the Northern Lights Arcade, black light dance party tonight!
+2025-01-24 19:00:06.912 | INFO     | __main__:generate_messages:91 - Come shop at the Bear's Den GiftShop, grab a book and read by the pool!
+2025-01-24 19:00:07.233 | INFO     | utils.utils_logger:<module>:38 - Logging to file: logs\project_log.log
+2025-01-24 19:00:07.245 | INFO     | __main__:main:78 - START consumer.
+2025-01-24 19:00:07.246 | INFO     | __main__:get_kafka_topic:30 - Kafka topic: buzzline
+2025-01-24 19:00:07.247 | INFO     | __main__:get_kafka_consumer_group_id:36 - Kafka consumer group id: default_group
+2025-01-24 19:00:07.248 | INFO     | __main__:main:83 - Consumer: Topic 'buzzline' and group 'default_group'...
+2025-01-24 19:00:07.248 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-24 19:00:07.249 | INFO     | utils.utils_consumer:create_kafka_consumer:44 - Creating Kafka consumer. Topic='buzzline' and group ID='default_group'.
+2025-01-24 19:00:07.382 | INFO     | utils.utils_consumer:create_kafka_consumer:57 - Kafka consumer created successfully.
+2025-01-24 19:00:07.385 | INFO     | utils.utils_producer:get_kafka_broker_address:50 - Kafka broker address: localhost:9092
+2025-01-24 19:00:07.386 | INFO     | utils.utils_producer:create_kafka_producer:146 - Connecting to Kafka broker at localhost:9092...
+2025-01-24 19:00:07.495 | INFO     | utils.utils_producer:create_kafka_producer:151 - Kafka producer successfully created.
+2025-01-24 19:00:07.496 | INFO     | __main__:main:90 - Polling messages from topic 'buzzline'...
+2025-01-24 19:00:07.627 | ERROR    | __main__:main:99 - Error while consuming messages: 'str' object has no attribute 'decode'
+2025-01-24 19:00:07.641 | INFO     | __main__:main:103 - Kafka consumer for topic 'buzzline' closed.
+2025-01-24 19:00:07.642 | INFO     | __main__:main:105 - END consumer for topic 'buzzline' and group 'default_group'.
