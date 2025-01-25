@@ -79,14 +79,26 @@ def generate_messages(producer, topic, interval_secs):
     # Separate strings into two categories
     messages_with_20 = [msg for msg in string_list if "20" in msg]
     messages_without_20 = [msg for msg in string_list if "20" not in msg]
-    
+
     try:
-        while True:
-            for message in string_list:
+        # to send messages with "20" first
+        logger.info("Sending messages containing '20'...")
+        for _ in range(20):  # Repeat this for 20 minutes
+        for message in messages_with_20:
                 logger.info(f"Generated buzz: {message}")
                 producer.send(topic, value=message)
                 logger.info(f"Sent message to topic '{topic}': {message}")
                 time.sleep(interval_secs)
+
+    # Send remaining messages
+        logger.info("Sending remaining messages...")
+        while True:
+            for message in messages_without_20:
+                logger.info(f"Generated buzz: {message}")
+                producer.send(topic, value=message.encode("utf-8"))
+                logger.info(f"Sent message to topic '{topic}': {message}")
+                time.sleep(interval_secs)  
+
     except KeyboardInterrupt:
         logger.warning("Producer interrupted by user.")
     except Exception as e:
