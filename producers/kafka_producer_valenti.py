@@ -22,7 +22,7 @@ from utils.utils_producer import (
     create_kafka_producer,
     create_kafka_topic,
 )
-from utils.utils_logger import logger
+from utils.utils_logger import logger  # Adjusted logger format is applied here.
 
 #####################################
 # Load Environment Variables
@@ -38,14 +38,14 @@ load_dotenv()
 def get_kafka_topic() -> str:
     """Fetch Kafka topic from environment or use default."""
     topic = os.getenv("KAFKA_TOPIC", "buzz_topic")
-    logger.info(f"Kafka topic: {topic}")
+    logger.info(topic)
     return topic
 
 
 def get_message_interval() -> int:
     """Fetch message interval from environment or use default."""
-    interval = int(os.getenv("MESSAGE_INTERVAL_SECONDS", 1)) # default to 60 seconds
-    logger.info(f"Message interval: {interval} seconds")
+    interval = int(os.getenv("MESSAGE_INTERVAL_SECONDS", 1))
+    logger.info(interval)
     return interval
 
 
@@ -66,39 +66,31 @@ def generate_messages(producer, topic, interval_secs):
     """
     string_list: list = [
         "Come play at the Northern Lights Arcade, free tokens to first 20 Guests!",
-        "Come play at the Northern Lights Arcade, black light dance party tonight!"
+        "Come play at the Northern Lights Arcade, black light dance party tonight!",
         "Come shop at the Bear's Den GiftShop, free stickers to first 20 Guests!",
-        "Come shop at the Bear's Den GiftShop, grab a book and read by the pool!"
+        "Come shop at the Bear's Den GiftShop, grab a book and read by the pool!",
         "Come golf at the Howl in One, free game to first 20 Guests",
         "Come golf at the Howl in One, so many colors of balls to choose from!",
         "Come swim at the Waterpark, free waterproof cameras to first 20 Guests!",
-        "Come swim at the waterpark, not responsible for damage to non-waterproof cameras!"
+        "Come swim at the waterpark, not responsible for damage to non-waterproof cameras!",
     ]
-
-
-    # Separate strings into two categories
-    messages_with_20 = [msg for msg in string_list if "20" in msg]
-    messages_without_20 = [msg for msg in string_list if "20" not in msg]
-
     try:
-        # to send messages with "20" first
-        logger.info("Sending messages containing '20'...")
-        for _ in range(20):  # Repeat this for 20 minutes
-            for message in messages_with_20:
-                logger.info(f"Generated buzz: {message}")
-                producer.send(topic, value=message)
-                logger.info(f"Sent message to topic '{topic}': {message}")
-                time.sleep(interval_secs)
+        # Filter messages containing "20" first, then process remaining messages.
+        messages_with_20 = [msg for msg in string_list if "20" in msg]
+        messages_without_20 = [msg for msg in string_list if "20" not in msg]
 
-    # Send remaining messages
-        logger.info("Sending remaining messages...")
+        # Send messages with "20" for 20 minutes (1 message per minute).
+        for message in messages_with_20:
+            logger.info(message)
+            producer.send(topic, value=message)
+            time.sleep(interval_secs * 60)
+
+        # Continue sending messages without "20" indefinitely (1 message per minute).
         while True:
             for message in messages_without_20:
-                logger.info(f"Generated buzz: {message}")
-                producer.send(topic, value=message.encode("utf-8"))
-                logger.info(f"Sent message to topic '{topic}': {message}")
-                time.sleep(interval_secs)  
-
+                logger.info(message)
+                producer.send(topic, value=message)
+                time.sleep(interval_secs * 60)
     except KeyboardInterrupt:
         logger.warning("Producer interrupted by user.")
     except Exception as e:
@@ -124,7 +116,7 @@ def main():
     logger.info("START producer.")
     verify_services()
 
-    # fetch .env content
+    # Fetch .env content
     topic = get_kafka_topic()
     interval_secs = get_message_interval()
 

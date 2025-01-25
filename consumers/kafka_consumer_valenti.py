@@ -45,7 +45,7 @@ def get_kafka_consumer_group_id() -> int:
 
 #####################################
 # Define a function to process a single message
-# #####################################
+#####################################
 
 
 def process_message(message: str) -> None:
@@ -77,7 +77,7 @@ def main() -> None:
     """
     logger.info("START consumer.")
 
-    # fetch .env content
+    # Fetch .env content
     topic = get_kafka_topic()
     group_id = get_kafka_consumer_group_id()
     logger.info(f"Consumer: Topic '{topic}' and group '{group_id}'...")
@@ -85,11 +85,12 @@ def main() -> None:
     # Create the Kafka consumer using the helpful utility function.
     consumer = create_kafka_consumer(topic, group_id)
 
-     # Poll and process messages
+    # Poll and process messages
     logger.info(f"Polling messages from topic '{topic}'...")
     try:
         for message in consumer:
-            message_str = message.value
+            # The 'value' field of the Kafka message is already a string
+            message_str = message.value  # No need to decode if the producer sends strings
             logger.debug(f"Received message at offset {message.offset}: {message_str}")
             process_message(message_str)
     except KeyboardInterrupt:
