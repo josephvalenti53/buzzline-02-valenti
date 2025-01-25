@@ -70,8 +70,8 @@ def generate_messages(producer, topic, interval_secs):
         "Come shop at the Bear's Den GiftShop, free stickers to first 20 Guests!",
         "Come shop at the Bear's Den GiftShop, grab a book and read by the pool!"
         "Come golf at the Howl in One, free game to first 20 Guests",
-        "Come golf at the Howl in One, so many colors of balls to choose from!"
-        "Come swim at the Waterpark, free waterproof cameras to first 20 Guests!"
+        "Come golf at the Howl in One, so many colors of balls to choose from!",
+        "Come swim at the Waterpark, free waterproof cameras to first 20 Guests!",
         "Come swim at the waterpark, not responsible for damage to non-waterproof cameras!"
     ]
     try:
